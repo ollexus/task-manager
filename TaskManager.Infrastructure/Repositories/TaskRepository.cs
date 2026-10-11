@@ -20,6 +20,7 @@ public sealed class TaskRepository(TaskManagerDbContext context, ILogger<TaskRep
         Prepare(task);
         task.Validate();
 
+        DetachTracked(task);
         context.Tasks.Add(task);
         await context.SaveChangesAsync(cancellationToken);
 
@@ -32,6 +33,7 @@ public sealed class TaskRepository(TaskManagerDbContext context, ILogger<TaskRep
 
         task.Validate();
 
+        DetachTracked(task);
         context.Tasks.Update(task);
         await context.SaveChangesAsync(cancellationToken);
 
@@ -41,11 +43,32 @@ public sealed class TaskRepository(TaskManagerDbContext context, ILogger<TaskRep
     public async Task DeleteAsync(TaskItem task, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(task);
-        
-        context.Tasks.Remove(task);
-        await context.SaveChangesAsync(cancellationToken);
 
-        logger.LogInformation("Задача {TaskId} удалена", task.Id);
+        DetachTracked(task);
+        context.Tasks.Remove(task);
+
+        try
+        {
+            await context.SaveChangesAsync(cancellationToken);
+
+            logger.LogInformation("Задача {TaskId} удалена", task.Id);
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            context.ChangeTracker.Clear();
+
+            logger.LogInformation("Задача {TaskId} уже была удалена", task.Id);
+        }
+    }
+    
+    private void DetachTracked(TaskItem task)
+    {
+        var tracked = context.Tasks.Local.FirstOrDefault(local => local.Id == task.Id);
+
+        if (tracked is not null && !ReferenceEquals(tracked, task))
+        {
+            context.Entry(tracked).State = EntityState.Detached;
+        }
     }
     
     private static void Prepare(TaskItem task)
