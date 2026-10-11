@@ -1,0 +1,151 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style Selector="Window">
+        <Setter Property="Background" Value="#F5F6F8" />
+    </Style>
+
+    <Style Selector="Button">
+        <Setter Property="Background" Value="#FFFFFF" />
+        <Setter Property="BorderBrush" Value="#D6DAE0" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="6" />
+        <Setter Property="Foreground" Value="#1F2328" />
+        <Setter Property="Padding" Value="14,7" />
+    </Style>
+
+    <Style Selector="Button:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="#EEF1F5" />
+    </Style>
+
+    <Style Selector="Button:pressed /template/ ContentPresenter">
+        <Setter Property="Background" Value="#E2E6EC" />
+    </Style>
+
+    <Style Selector="Button.primary">
+        <Setter Property="Background" Value="#2563EB" />
+        <Setter Property="BorderBrush" Value="#2563EB" />
+        <Setter Property="Foreground" Value="#FFFFFF" />
+    </Style>
+
+    <Style Selector="Button.primary:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="#1D4ED8" />
+        <Setter Property="TextBlock.Foreground" Value="#FFFFFF" />
+    </Style>
+
+    <Style Selector="Button.link">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Foreground" Value="#D93025" />
+        <Setter Property="Padding" Value="8,4" />
+    </Style>
+
+    <Style Selector="Button.link:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="#FDECEA" />
+        <Setter Property="TextBlock.Foreground" Value="#D93025" />
+    </Style>
+
+    <Style Selector="Border.card">
+        <Setter Property="Background" Value="#FFFFFF" />
+        <Setter Property="BorderBrush" Value="#E2E5EA" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="10" />
+    </Style>
+
+    <Style Selector="Border.alert">
+        <Setter Property="Background" Value="#FDECEA" />
+        <Setter Property="BorderBrush" Value="#F5C2C0" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Padding" Value="12" />
+    </Style>
+
+    <Style Selector="TextBox.field">
+        <Setter Property="Background" Value="#FFFFFF" />
+        <Setter Property="CornerRadius" Value="6" />
+        <Setter Property="Foreground" Value="#1F2328" />
+    </Style>
+
+    <Style Selector="TextBox.field:focus /template/ Border#PART_BorderElement">
+        <Setter Property="BorderBrush" Value="#2563EB" />
+        <Setter Property="BorderThickness" Value="1.5" />
+    </Style>
+
+    <Style Selector="TextBox.field.invalid /template/ Border#PART_BorderElement">
+        <Setter Property="BorderBrush" Value="#D93025" />
+        <Setter Property="BorderThickness" Value="1.5" />
+    </Style>
+
+    <Style Selector="Border.headerRow">
+        <Setter Property="Background" Value="#EFF1F4" />
+        <Setter Property="BorderBrush" Value="#E2E5EA" />
+        <Setter Property="BorderThickness" Value="0,0,0,1" />
+        <Setter Property="Padding" Value="0,9" />
+    </Style>
+
+    <Style Selector="TextBlock.headerCell">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="#374151" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+
+    <Style Selector="Border.tableRow">
+        <Setter Property="Background" Value="#FFFFFF" />
+        <Setter Property="BorderBrush" Value="#EDEFF2" />
+        <Setter Property="BorderThickness" Value="0,0,0,1" />
+        <Setter Property="Padding" Value="0,10" />
+    </Style>
+
+    <Style Selector="Border.tableRow:pointerover">
+        <Setter Property="Background" Value="#F7F9FC" />
+    </Style>
+
+    <Style Selector="TextBlock.titleCell">
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+
+    <Style Selector="TextBlock.titleCell.done">
+        <Setter Property="Foreground" Value="#9AA0A6" />
+        <Setter Property="TextDecorations" Value="Strikethrough" />
+    </Style>
+
+    <Style Selector="TextBlock.hint">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="Foreground" Value="#6B7280" />
+    </Style>
+
+    <Style Selector="TextBlock.fieldError">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="Foreground" Value="#D93025" />
+    </Style>
+
+    <Style Selector="TextBlock.emptyHint">
+        <Setter Property="Foreground" Value="#9AA0A6" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+
+    <Style Selector="ListBoxItem">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Padding" Value="0" />
+    </Style>
+
+    <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+    </Style>
+
+    <Style Selector="ListBoxItem:selected Border.tableRow">
+        <Setter Property="Background" Value="#DBEAFE" />
+    </Style>
+
+    <Style Selector="ListBoxItem:focus /template/ ContentPresenter">
+        <Setter Property="BorderBrush" Value="#2563EB" />
+        <Setter Property="BorderThickness" Value="2" />
+    </Style>
+
+</Styles>

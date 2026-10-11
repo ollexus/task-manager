@@ -1,0 +1,28 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="TaskManager.Desktop.Views.StartupErrorWindow"
+        Title="Ошибка запуска"
+        Width="520"
+        SizeToContent="Height"
+        CanResize="False"
+        WindowStartupLocation="CenterScreen">
+
+    <StackPanel Margin="24" Spacing="12">
+        <TextBlock FontSize="18"
+                   FontWeight="SemiBold"
+                   Foreground="#B3261E"
+                   Text="Приложение не может запуститься" />
+
+        <TextBlock x:Name="ErrorText" TextWrapping="Wrap" />
+
+        <TextBlock Foreground="#6B7280"
+                   FontSize="12"
+                   TextWrapping="Wrap"
+                   Text="Проверьте, что PostgreSQL запущен, база «taskdb» существует, а строка подключения в appsettings.json корректна." />
+
+        <Button HorizontalAlignment="Right"
+                MinWidth="100"
+                Click="OnCloseClick"
+                Content="Закрыть" />
+    </StackPanel>
+</Window>
