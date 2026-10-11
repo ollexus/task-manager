@@ -1,22 +1,72 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:TaskManager.Desktop.ViewModels"
+        xmlns:models="using:TaskManager.Domain.Models"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="TaskManager.Desktop.Views.MainWindow"
         x:DataType="vm:MainViewModel"
         Icon="/Assets/avalonia-logo.ico"
-        Title="TaskManager.Desktop">
+        Title="TaskManager">
 
-    <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-        <vm:MainViewModel />
-    </Design.DataContext>
+    <Window.Styles>
+        <Style Selector="TextBlock.title.done">
+            <Setter Property="Opacity" Value="0.6" />
+            <Setter Property="TextDecorations" Value="Strikethrough" />
+        </Style>
+    </Window.Styles>
 
-    <TextBox Text="{Binding Greeting}"
-             HorizontalAlignment="Center"
-             VerticalAlignment="Center" />
+    <DockPanel Margin="16">
+
+        <Border DockPanel.Dock="Bottom"
+                Margin="0,0,0,8"
+                Padding="8"
+                Background="#20E74C4C"
+                IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+            <TextBlock Text="{Binding ErrorMessage}" TextWrapping="Wrap" />
+        </Border>
+
+        <Grid DockPanel.Dock="Top" RowDefinitions="Auto,Auto" Margin="0,0,0,8">
+            <TextBox Grid.Row="0"
+                     MinWidth="320"
+                     Text="{Binding NewTaskTitle}"
+                     PlaceholderText="Новая задача" />
+
+            <StackPanel Grid.Row="1"
+                        Margin="0,8,0,0"
+                        Orientation="Horizontal"
+                        Spacing="8">
+                <Button Command="{Binding AddCommand}"
+                        Content="Добавить" />
+                <Button Command="{Binding LoadCommand}"
+                        Content="Обновить" />
+            </StackPanel>
+        </Grid>
+
+        <ListBox ItemsSource="{Binding Tasks}">
+            <ListBox.ItemTemplate>
+                <DataTemplate x:DataType="models:TaskItem">
+                    <Grid ColumnDefinitions="Auto,*,Auto" Margin="0,4">
+                        <CheckBox Grid.Column="0"
+                                  VerticalAlignment="Center"
+                                  IsChecked="{Binding IsCompleted, Mode=OneWay}"
+                                  Command="{Binding $parent[ItemsControl].((vm:MainViewModel)DataContext).ToggleCompletedCommand}"
+                                  CommandParameter="{Binding}" />
+                        <TextBlock Grid.Column="1"
+                                   Classes="title"
+                                   Classes.done="{Binding IsCompleted}"
+                                   Margin="8,0"
+                                   VerticalAlignment="Center"
+                                   Text="{Binding Title}" />
+                        <Button Grid.Column="2"
+                                Command="{Binding $parent[ItemsControl].((vm:MainViewModel)DataContext).DeleteCommand}"
+                                CommandParameter="{Binding}"
+                                Content="Удалить" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </DockPanel>
 
 </Window>
