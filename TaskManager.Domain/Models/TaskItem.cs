@@ -8,6 +8,8 @@ public class TaskItem
     public string Title { get; set; } = string.Empty;
     
     public bool IsCompleted { get; set; }
+
+    public bool IsDeleted { get; set; }
     
     public DateTime CreatedAt { get; set; }
 

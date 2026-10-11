@@ -45,7 +45,9 @@ public sealed class TaskRepository(TaskManagerDbContext context, ILogger<TaskRep
         ArgumentNullException.ThrowIfNull(task);
 
         DetachTracked(task);
-        context.Tasks.Remove(task);
+
+        task.IsDeleted = true;
+        context.Tasks.Update(task);
 
         try
         {

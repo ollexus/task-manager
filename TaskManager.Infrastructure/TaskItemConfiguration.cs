@@ -15,6 +15,8 @@ public class TaskItemConfiguration : IEntityTypeConfiguration<TaskItem>
         
         builder.HasKey(task => task.Id);
 
+        builder.HasQueryFilter(task => !task.IsDeleted);
+
         builder.Property(task => task.Id)
             .ValueGeneratedNever();
 
@@ -25,6 +27,12 @@ public class TaskItemConfiguration : IEntityTypeConfiguration<TaskItem>
         builder.Property(task => task.IsCompleted)
             .HasDefaultValue(false)
             .IsRequired();
+
+        builder.Property(task => task.IsDeleted)
+            .HasDefaultValue(false)
+            .IsRequired();
+
+        builder.HasIndex(task => task.IsDeleted);
 
         builder.Property(task => task.CreatedAt)
             .HasColumnType("timestamp with time zone")

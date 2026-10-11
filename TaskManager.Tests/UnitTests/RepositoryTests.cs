@@ -53,6 +53,28 @@ public sealed class RepositoryTests(PostgresFixture fixture)
     }
 
     [Fact]
+    public async Task DeleteAsync_KeepsTaskInDatabaseButHidesIt()
+    {
+        await using var context = fixture.CreateContext();
+        var repository = new TaskRepository(context, NullLogger<TaskRepository>.Instance);
+
+        var task = new TaskItem { Title = "Soft deleted task" };
+        await repository.AddAsync(task);
+
+        await repository.DeleteAsync(task);
+
+        Assert.DoesNotContain(await repository.GetAllAsync(), item => item.Title == "Soft deleted task");
+
+        await using var rawContext = fixture.CreateContext();
+
+        var rowCount = await rawContext.Tasks
+            .IgnoreQueryFilters()
+            .CountAsync(item => item.Title == "Soft deleted task");
+
+        Assert.Equal(1, rowCount);
+    }
+
+    [Fact]
     public async Task DeleteAsync_AfterReloadOfUpdatedTask_DoesNotThrow()
     {
         await using var context = fixture.CreateContext();
